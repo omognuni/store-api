@@ -10,16 +10,19 @@
   -  login 혹은 admin 권한
   - 주문내역(Order)
     - 조회, 생성, 수정, 삭제
-    - 주문 내역 전체 조회
+    - 주문 내역 전체 조회 
       - orders/order
-    - 유저 상세 페이지에서 해당 유저 주문내역 조회
-      - user/users/mypage
+      - 관리자일 경우 전체
+      - 이용자일 경우 이용자 것만 조회
+    - 주문 내역 개별 조회
+      - orders/order/<int:order_id>
+  
   - 상품(Item)
     - items/item
     - 조회, 생성, 수정, 삭제
     
   - 결제 관리
-    - order의 status로 결제대기, 결제완료
+    - order의 status로 결제대기, 결제완료, 결제취소 표시
   
 
 ### Item
