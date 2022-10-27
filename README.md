@@ -28,3 +28,8 @@
 ### Item
 - 상품 등록,수정,삭제
 - 상품 주문
+
+
+### 이슈
+- User api 테스트에서 get_user_model().objects.create_user() 로 생성한 유저로
+- 토큰을 받으려고 하면 user.authenticate() 함수에서 none이 반환됨
