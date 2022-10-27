@@ -11,7 +11,7 @@
   - 주문내역(Order)
     - 조회, 생성, 수정, 삭제
     - 주문 내역 전체 조회
-    - orders/order
+      - orders/order
     - 유저 상세 페이지에서 해당 유저 주문내역 조회
       - user/users/mypage
   - 상품(Item)
