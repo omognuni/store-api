@@ -9,7 +9,6 @@ from core.models import Order
 
 CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
-MYPAGE_URL = reverse('user:mypage')
 
 
 def create_user(**params):
@@ -77,12 +76,5 @@ class publicAPITest(TestCase):
 
         self.assertNotIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_retrieve_user_unauthorized(self):
-        """미인증 사용자가 사용자 상세 페이지 진입 시 오류"""
-        res = self.client.get(MYPAGE_URL)
-
-        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
-
     
     
