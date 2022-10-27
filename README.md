@@ -1,5 +1,8 @@
 ### 온라인 스토어
 
+### ERD
+<img src='/images/ERD.png'>
+
 ### User
 - 이용자
   -  login x 혹은 admin 권한 x, 조회만 가능
