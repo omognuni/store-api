@@ -1,6 +1,16 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+from datetime import datetime
+
+from core.models import Item, Order
+
+def create_user(username='testname', password='testpass'):
+    return get_user_model().objects.create_user(username, password)
+
+def create_item(user, name='testname', price='10000', description='test'):
+    return Item.objects.create(name=name, user=user, price=price, description=description)
+
 
 class ModelTest(TestCase):
     '''모델 생성 테스트'''    
@@ -25,4 +35,33 @@ class ModelTest(TestCase):
         self.assertTrue(user.check_password(password))
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+        
+    def test_create_item_model(self):
+        '''상품 모델 생성 테스트'''
+        name = 'testitem'
+        user = create_user()
+        price = '10000'
+        description ='test'
+        
+        item = Item.objects.create(name=name,user=user,price=price,description=description)
+        
+        self.assertEqual(str(item), item.name )
+    
+    def test_create_order_model(self):
+        '''주문 모델 생성 테스트'''
+        user = create_user()
+        item = create_item(user)
+        quantity = 1
+        status = 'pending'
+        
+        order = Order.objects.create(
+            user=user,
+            item=item,
+            quantity=quantity,
+            status=status
+            )
+        
+        self.assertEqual(str(order), status)
+        self.assertEqual(order.user, user)
+        self.assertEqual(order.item, item)
         
