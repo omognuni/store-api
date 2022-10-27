@@ -5,7 +5,6 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from core.models import Order
 
 CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
@@ -14,7 +13,7 @@ TOKEN_URL = reverse('user:token')
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
-class publicAPITest(TestCase):
+class PublicAPITest(TestCase):
     '''public user api 테스트'''
     
     def setUp(self):
@@ -24,16 +23,16 @@ class publicAPITest(TestCase):
         '''회원가입 테스트'''
         payload = {
             'username':'testname',
-            'password':'testpass'
+            'password':'testpass',
         }
         
-        res = self.client.post(payload)
+        res = self.client.post(CREATE_USER_URL, payload)
         
         user = get_user_model().objects.get(username=payload['username'])
         
-        self.assertEqual(res.status, status.HTTP_201_CREATED)
-        self.assertEqual(user.check_password(payload['password']))
-        self.assertNotIn('password'. res.data)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(user.check_password(payload['password']))
+        self.assertNotIn('password', res.data)
         
     def test_password_too_short_error(self):
         """짧은 비밀번호 입력 시 에러 """
@@ -57,8 +56,8 @@ class publicAPITest(TestCase):
             'password': 'testpass',
         }
 
-        create_user(**payload)
-
+        res = self.client.post(CREATE_USER_URL, payload)
+        
         res = self.client.post(TOKEN_URL, payload)
 
         self.assertIn('token', res.data)
@@ -66,13 +65,18 @@ class publicAPITest(TestCase):
 
     def test_create_token_invalid_credentials(self):
         """잘못된 계정 입력 시 토큰 미생성"""
-        create_user(username='testname', password='testpass')
-        payload = {
+        payload1 = {
+            'username': ' testname',
+            'password': 'testpass',
+        }
+        res = self.client.post(CREATE_USER_URL, payload1)
+        
+        payload2 = {
             'username': ' testname',
             'password': 'wrong',
         }
 
-        res = self.client.post(TOKEN_URL, payload)
+        res = self.client.post(TOKEN_URL, payload2)
 
         self.assertNotIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
