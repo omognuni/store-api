@@ -250,3 +250,21 @@ class PrivateAPITest(TestCase):
         res = self.client.delete(url)
         
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        
+    def test_search_orders_by_status(self):
+        '''주문내역 상태 검색 구현'''
+        create_order(user=self.user, status='pending')
+        create_order(user=self.user, status='pending')
+        create_order(user=self.user, status='complete')
+        create_order(user=self.user, status='complete')
+        create_order(user=self.user, status='cancel')
+        create_order(user=self.user, status='cancel')
+        
+        params = {'search':'pending'}
+        
+        res = self.client.get(ORDER_URL, params)
+        
+        orders = Order.objects.filter(status='pending')
+        serializer = OrderSerializer(orders, many=True)
+        
+        self.assertEqual(res.data, serializer.data)
