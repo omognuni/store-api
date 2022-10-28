@@ -52,11 +52,13 @@ class ModelTest(TestCase):
         item = create_item(user)
         quantity = 1
         status = 'pending'
+        price = item.price * quantity
         
         order = Order.objects.create(
             user=user,
             item=item,
             quantity=quantity,
+            total_price=price,
             status=status
             )
         
