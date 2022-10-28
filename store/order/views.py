@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.authentication import TokenAuthentication
 
 from core.models import Order
@@ -12,6 +12,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     authenitcation_classes = [TokenAuthentication]
     permission_classes = [IsAdminOrCRUOnly]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['status']
     
     def perform_create(self, serializer):
         '''주문을 생성한 사용자 저장'''
