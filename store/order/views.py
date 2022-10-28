@@ -1,7 +1,7 @@
 from rest_framework import viewsets, filters
 from rest_framework.authentication import TokenAuthentication
 
-from core.models import Order
+from core.models import Order, Item
 
 from order.permissions import IsAdminOrCRUOnly
 from order import serializers
@@ -17,7 +17,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         '''주문을 생성한 사용자 저장'''
-        serializer.save(user=self.request.user)
+        validated_data = serializer.validated_data
+        price = validated_data['item'].price
+        total_price = price * validated_data['quantity']
+
+        serializer.save(user=self.request.user, total_price=total_price)
         
     def get_queryset(self):
         '''이용자와 관리자 queryset 분리'''
