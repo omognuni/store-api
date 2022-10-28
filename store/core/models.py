@@ -52,6 +52,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     quantity = models.IntegerField()
+    total_price = models.IntegerField()
     status = models.CharField(max_length=255,choices=Status.choices())
     
     def __str__(self):
