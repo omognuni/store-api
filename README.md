@@ -11,7 +11,7 @@
 | 내용 | Method | URL |
 |------|---|---------|
 |회원가입|POST| api/user/create|
-|Token 인증||POST| api/user/token|
+|Token 인증|POST| api/user/token|
 
 ### 주문내역(Order)
  - 조회, 생성, 수정, 삭제
