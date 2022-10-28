@@ -38,7 +38,6 @@ class Status(str, Enum):
 
 class Item(models.Model):
     name = models.CharField(max_length=255)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     price = models.IntegerField()
     description = models.TextField()
     

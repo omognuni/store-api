@@ -8,8 +8,8 @@ from core.models import Item, Order
 def create_user(username='testname', password='testpass'):
     return get_user_model().objects.create_user(username, password)
 
-def create_item(user, name='testname', price='10000', description='test'):
-    return Item.objects.create(name=name, user=user, price=price, description=description)
+def create_item(name='testname', price='10000', description='test'):
+    return Item.objects.create(name=name, price=price, description=description)
 
 
 class ModelTest(TestCase):
@@ -39,11 +39,10 @@ class ModelTest(TestCase):
     def test_create_item_model(self):
         '''상품 모델 생성 테스트'''
         name = 'testitem'
-        user = create_user()
         price = '10000'
         description ='test'
         
-        item = Item.objects.create(name=name,user=user,price=price,description=description)
+        item = Item.objects.create(name=name,price=price,description=description)
         
         self.assertEqual(str(item), item.name )
     
