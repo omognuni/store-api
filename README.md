@@ -25,7 +25,7 @@ docker-compose run --rm store sh -c 'python manage.py test
 - 이용자
 - 관리자
   -  staff 권한
-- 
+
 | 내용 | Method | URL |
 |------|---|---------|
 |회원가입|POST| api/user/create|
@@ -46,6 +46,7 @@ docker-compose run --rm store sh -c 'python manage.py test
 |GET| api/order/orders|
 |POST| api/order/orders|
 |PUT,PATCH| api/order/orders/order_id|
+|DELETE| api/order/orders/order_id|
 |query params| api/order/orders/?search=status|
 
 ### 상품(Item)
@@ -60,6 +61,7 @@ docker-compose run --rm store sh -c 'python manage.py test
   |GET| api/item/items|
   |POST| api/item/items|
   |PUT,PATCH| api/item/items/item_id|
+  |DELETE| api/item/items/item_id|
  
 
 ### 이슈
