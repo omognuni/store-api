@@ -7,8 +7,9 @@
 - 이용자
 - 관리자
   -  staff 권한
-|내용| Method | URL |
-|----|--------|--------| 
+- 
+| 내용 | Method | URL |
+|------|---|---------|
 |회원가입|POST| api/user/create|
 |Token 인증||POST| api/user/token|
 
@@ -17,8 +18,9 @@
  - 주문 내역 조회 
    - 관리자일 경우 전체
    - 이용자일 경우 이용자 것만 조회
+
 | Method | URL |
-|--------|--------| 
+|---|------| 
 |GET| api/order/orders|
 |POST| api/order/orders|
 |PUT,PATCH| api/order/orders/order_id|
@@ -29,6 +31,7 @@
    - 조회, 생성, 수정, 삭제
  - 이용자
    - 조회
+  
   | Method | URL |
   |--------|--------| 
   |GET| api/item/items|
