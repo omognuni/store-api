@@ -57,7 +57,6 @@ class Order(models.Model):
         return self.status
 
 class User(AbstractBaseUser, PermissionsMixin):
-
     username = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
