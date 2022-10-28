@@ -15,7 +15,7 @@ docker-compose run --rm store sh -c 'python manage.py test
   - store/order/tests
   - store/user/tests
 
-<img src='/images/test.png'>
+<img src='/images/test.PNG'>
 
 
 ### ERD
