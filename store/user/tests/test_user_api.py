@@ -35,7 +35,7 @@ class PublicAPITest(TestCase):
         self.assertNotIn('password', res.data)
         
     def test_password_too_short_error(self):
-        """짧은 비밀번호 입력 시 에러 """
+        '''짧은 비밀번호 입력 시 에러 '''
         payload = {
             'username': ' testname',
             'password': 'pw',
@@ -64,7 +64,7 @@ class PublicAPITest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_create_token_invalid_credentials(self):
-        """잘못된 계정 입력 시 토큰 미생성"""
+        '''잘못된 계정 입력 시 토큰 미생성'''
         payload1 = {
             'username': ' testname',
             'password': 'testpass',

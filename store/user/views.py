@@ -11,11 +11,11 @@ from user.serializers import (
 
 
 class CreateUserView(generics.CreateAPIView):
-    """Create a new user in the system"""
+    '''user 생성'''
     serializer_class = UserSerializer
 
 
 class CreateTokenView(ObtainAuthToken):
-    """Create a new auth token for user"""
+    '''user token 생성'''
     serializer_class = AuthTokenSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
