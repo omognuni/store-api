@@ -14,9 +14,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrCRUOnly]
     
     def perform_create(self, serializer):
+        '''주문을 생성한 사용자 저장'''
         serializer.save(user=self.request.user)
         
     def get_queryset(self):
+        '''이용자와 관리자 queryset 분리'''
         if self.request.user.is_staff:
             queryset = self.queryset
         else:
