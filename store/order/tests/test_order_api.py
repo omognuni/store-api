@@ -41,6 +41,7 @@ def create_order(user, **params):
     defaults = {
         'item': item,
         'quantity':1,
+        'total_price': item.price * 1,
         'status': 'pending'
     }
     defaults.update(**params)
