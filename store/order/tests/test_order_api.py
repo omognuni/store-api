@@ -53,10 +53,33 @@ class PrivateAPITest(TestCase):
         self.user = get_user_model().objects.create_user(username='testuser', password='testpass')
         self.client.force_authenticate(self.user)        
    
-    def test_retrieve_order(self):
-        ''' Order 목록 가져오기'''
+    def test_retrieve_order_created_by_user(self):
+        ''' 이용자가 만든 order만 가져오기'''
         create_order(user=self.user)
         create_order(user=self.user)
+        new_user = get_user_model().objects.create_user(username='testuser2', password='testpass')
+        create_order(user=new_user)
+        create_order(user=new_user)
+        
+        res = self.client.get(ORDER_URL)
+        
+        orders = Order.objects.filter(user=self.user.id)
+        serializer = OrderSerializer(orders, many=True)
+        
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 2)
+        self.assertEqual(res.data, serializer.data)
+    
+    def test_retrieve_all_order_by_staff(self):
+        '''관리자로 모든 Order 목록 가져오기'''
+        self.user.is_staff = True
+        self.user.save()
+        
+        create_order(user=self.user)
+        create_order(user=self.user)
+        new_user = get_user_model().objects.create_user(username='testuser2', password='testpass')
+        create_order(user=new_user)
+        create_order(user=new_user)
         
         res = self.client.get(ORDER_URL)
         
@@ -64,8 +87,9 @@ class PrivateAPITest(TestCase):
         serializer = OrderSerializer(orders, many=True)
         
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data, serializer.data)    
-    
+        self.assertEqual(len(res.data), 4)
+        self.assertEqual(res.data, serializer.data)
+        
     def test_create_order_by_staff(self):
         '''관리자로 Order 생성'''
         self.user.is_staff = True
