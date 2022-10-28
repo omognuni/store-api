@@ -28,6 +28,7 @@ class UserManager(BaseUserManager):
 class Status(str, Enum):
     PENDING = 'pending'
     COMPLETE = 'complete'
+    CANCEL = 'cancel'
     
     @classmethod
     def choices(cls):
