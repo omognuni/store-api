@@ -1,4 +1,22 @@
-### 온라인 스토어
+# 온라인 스토어
+
+### 설치
+- git clone 후 다음 명령어 실행
+```
+docker-compose up --build
+```
+- 테스트 결과 확인
+```
+docker-compose run --rm store sh -c 'python manage.py test
+```
+- 테스트 코드는 각 app 들의 tests 폴더 참조
+  - store/core/tests
+  - store/item/tests
+  - store/order/tests
+  - store/user/tests
+
+<img src='/images/test.png'>
+
 
 ### ERD
 <img src='/images/ERD.png'>
@@ -17,13 +35,18 @@
  - 조회, 생성, 수정, 삭제
  - 주문 내역 조회 
    - 관리자일 경우 전체
-   - 이용자일 경우 이용자 것만 조회
+   - 이용자일 경우 이용자가 만든 order만 조회
+  
+- 주문 내역 검색
+  - 결제 상태로 주문 내역 검색 가능
+
 
 | Method | URL |
 |---|------| 
 |GET| api/order/orders|
 |POST| api/order/orders|
 |PUT,PATCH| api/order/orders/order_id|
+|query params| api/order/orders/?search=status|
 
 ### 상품(Item)
  - items/item
@@ -38,8 +61,6 @@
   |POST| api/item/items|
   |PUT,PATCH| api/item/items/item_id|
  
-- 결제 관리
-  - order의 status로 결제대기, 결제완료, 결제취소 표시
 
 ### 이슈
 1.  User api 테스트에서 get_user_model().objects.create_user() 로 생성한 유저로 
